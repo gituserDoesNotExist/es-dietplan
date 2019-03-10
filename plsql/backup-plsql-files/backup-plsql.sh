@@ -6,7 +6,7 @@ schema='playground'
 password='playground'
 backupBaseDir=$(pwd)
 scheme2dllJarName='scheme2ddl-2.4.3-SNAPSHOT.jar'
-currentDate=$(date +'dd.mm.yyyy')
+currentDate=$(date +'%c')
 
 echo $logInfo $currentDate: 'backing up schema"' $schema '"to "'$backupBaseDir'"'
 
@@ -17,4 +17,4 @@ echo $logInfo 'pushing to origin develop'
 
 git checkout develop
 git add .
-git commit -m 'backup plsql files at '$currentDate 
+git commit -m "backup plsql files at $currentDate"

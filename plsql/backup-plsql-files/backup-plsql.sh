@@ -2,8 +2,8 @@
 
 logInfo='backup-plsql.sh: '
 
-schema='playground'
-password='playground'
+schema='dietplan'
+password='dietplan'
 backupBaseDir=$(pwd)
 scheme2dllJarName='scheme2ddl-2.4.3-SNAPSHOT.jar'
 currentDate=$(date +'%c')

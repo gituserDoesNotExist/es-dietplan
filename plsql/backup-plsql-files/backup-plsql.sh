@@ -18,3 +18,4 @@ echo $logInfo 'pushing to origin develop'
 git checkout develop
 git add .
 git commit -m "backup plsql files at $currentDate"
+git push -u origin develop

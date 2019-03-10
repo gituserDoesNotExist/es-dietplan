@@ -7,7 +7,11 @@ password='dietplan'
 backupBaseDir=$(pwd)
 scheme2dllJarName='scheme2ddl-2.4.3-SNAPSHOT.jar'
 currentDate=$(date +'%c')
-logFileName='log.txt'
+
+
+pathToBackupScript='/home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/'
+
+cd $pathToBackupScript
 
 echo $logInfo 'starting oracle db'
 sudo su -c "service oracle-xe start"
@@ -25,4 +29,4 @@ git add .
 git commit -m "backup plsql files at $currentDate"
 git push -u origin develop
 
-gedit $logFileName
+

@@ -9,7 +9,7 @@ scheme2dllJarName='scheme2ddl-2.4.3-SNAPSHOT.jar'
 currentDate=$(date +'%c')
 
 echo $logInfo 'starting oracle db'
-service oracle-xe start
+su -c "service oracle-xe start"
 
 
 echo $logInfo $currentDate: 'backing up schema"' $schema '"to "'$backupBaseDir'"'

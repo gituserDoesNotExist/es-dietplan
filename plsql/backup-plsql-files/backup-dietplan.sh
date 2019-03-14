@@ -12,13 +12,10 @@ java -jar $jarName >> $logFileName
 
 git add .
 git commit -m "backed up files at $currentDate"
-test=$(git push any)
+git push
 
 
 exitStatus=$?
-
-echo $exitStatus
-echo $test
 
 if [ $exitStatus -ne 0 ]
 then

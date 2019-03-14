@@ -11,7 +11,16 @@ java -jar $jarName >> $logFileName
 
 git add .
 git commit -m "backed up files at $currentDate"
-git push >> $logFileName
+git push
+
+exitStatus=$?
+
+echo $exitStatus
+
+if [ $exitStatus -neq 0 ]
+then
+	echo "$logInfo error during backup!"
+fi
 
 
 

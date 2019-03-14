@@ -11,7 +11,7 @@ jarName='scheme2ddl-2.4.3-SNAPSHOT.jar'
 java -jar $jarName >> $logFileName
 
 git add .
-git commit -m "backed up files at $currentDate"
+git commit --author="ManfredBeutel <manfred-beutel@web.de>" -m "backed up files at $currentDate"
 #git push 
 
 

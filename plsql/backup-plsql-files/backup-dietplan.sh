@@ -12,8 +12,8 @@ java -jar $jarName >> $logFileName
 
 git checkout develop
 git add .
-git commit --author="ManfredBeutel <manfred-beutel@web.de>" -m "backed up files at $currentDate"
-git push https://gituserDoesNotExist:741eba1b@github.com/gituserDoesNotExist/es-dietplan.git
+sudo git commit --author="ManfredBeutel <manfred-beutel@web.de>" -m "backed up files at $currentDate"
+sudo git push https://gituserDoesNotExist:741eba1b@github.com/gituserDoesNotExist/es-dietplan.git
 
 
 exitStatus=$?

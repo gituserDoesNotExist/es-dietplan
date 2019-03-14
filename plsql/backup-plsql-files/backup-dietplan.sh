@@ -18,7 +18,7 @@ exitStatus=$?
 
 echo $exitStatus
 
-if [ $exitStatus -neq 0 ]
+if [ $exitStatus -ne 0 ]
 then
 	echo "$logInfo error during backup!"
 fi

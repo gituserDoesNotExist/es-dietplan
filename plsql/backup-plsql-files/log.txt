@@ -64,3 +64,14 @@ Written 2 ddls with user objects from total 2 in schema DIETPLAN
 Skip processing 0 user objects from total 2 in schema DIETPLAN
 scheme2ddl of schema DIETPLAN completed in 0 seconds
 Processing schema  [DIETPLAN] completed 
+#########################################################
+backup-dietplan -Do 14 Mär 2019 23:09:32 CET :  start to back up files
+Will try to process schema  [DIETPLAN] 
+Start getting of user object list in schema DIETPLAN for processing
+Found 2 items for processing in schema DIETPLAN
+Saved function dietplan.test_function to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/functions/test_function.sql
+Saved procedure dietplan.test_procedure to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/procedures/test_procedure.sql
+Written 2 ddls with user objects from total 2 in schema DIETPLAN
+Skip processing 0 user objects from total 2 in schema DIETPLAN
+scheme2ddl of schema DIETPLAN completed in 0 seconds
+Processing schema  [DIETPLAN] completed 

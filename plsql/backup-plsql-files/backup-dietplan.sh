@@ -12,7 +12,7 @@ java -jar $jarName >> $logFileName
 
 git add .
 git commit -m "backed up files at $currentDate"
-git push
+#git push 
 
 
 exitStatus=$?

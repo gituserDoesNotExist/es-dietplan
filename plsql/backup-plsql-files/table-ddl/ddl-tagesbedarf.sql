@@ -17,9 +17,6 @@ create table tagesbedarf_vitamine (
   	CONSTRAINT pk_tagesbedarf_vitamine primary key (id)
 );
 /
-insert into tagesbedarf_vitamine (id,vitaminARetinol,vitaminABetaCarotin,vitaminB1,vitaminB2,vitaminB6,vitaminB12,vitaminC,vitaminD,vitaminE,vitaminK)
-	values (1,2,2,2,2,2,2,2,2,2,2);
-/
 
 create table tagesbedarf_mineralstoffe (
     id NUMBER(10) NOT NULL,
@@ -38,8 +35,5 @@ create table tagesbedarf_mineralstoffe (
     zink BINARY_FLOAT,
     CONSTRAINT pk_tagesbedarf_mineralstoffe primary key(id)
 );
-/
-insert into tagesbedarf_mineralstoffe (id,calcium,chlorid,eisen,fluorid,iodid,kalium,kupfer,mangan,magnesium,natrium,phosphor,schwefel,zink)
-	values (1,2,2,2,2,2,2,2,2,2,2,2,2,2);
 /
 

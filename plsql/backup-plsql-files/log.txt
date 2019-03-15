@@ -164,3 +164,34 @@ Written 14 ddls with user objects from total 20 in schema DIETPLAN
 Skip processing 6 user objects from total 20 in schema DIETPLAN
 scheme2ddl of schema DIETPLAN completed in 1 seconds
 Processing schema  [DIETPLAN] completed 
+#########################################################
+backup-dietplan -Sa 16 Mär 2019 00:02:55 CET :  start to back up files
+Will try to process schema  [DIETPLAN] 
+Start getting of user object list in schema DIETPLAN for processing
+Found 20 items for processing in schema DIETPLAN
+Saved procedure dietplan.drop_sequence_safely to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/procedures/drop_sequence_safely.sql
+Saved procedure dietplan.drop_table_safely to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/procedures/drop_table_safely.sql
+Saved sequence dietplan.seq_brennstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/sequences/seq_brennstoffe.sql
+Saved table dietplan.food to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/tables/food.sql
+Saved sequence dietplan.seq_mineralstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/sequences/seq_mineralstoffe.sql
+Saved table dietplan.brennstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/tables/brennstoffe.sql
+Saved sequence dietplan.seq_food to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/sequences/seq_food.sql
+Saved sequence dietplan.seq_vitamine to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/sequences/seq_vitamine.sql
+Saved table dietplan.mineralstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/tables/mineralstoffe.sql
+Saved procedure dietplan.test_procedure to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/procedures/test_procedure.sql
+Saved function dietplan.test_function to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/functions/test_function.sql
+Saved table dietplan.tagesbedarf_vitamine to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/tables/tagesbedarf_vitamine.sql
+Saved table dietplan.vitamine to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/tables/vitamine.sql
+Saved table dietplan.tagesbedarf_mineralstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/plsql/backup-plsql-files/DIETPLAN/tables/tagesbedarf_mineralstoffe.sql
+
+-------------------------------------------------------
+   R E P O R T     S K I P P E D     O B J E C T S     
+-------------------------------------------------------
+| skip rule |  object type              |    count    |
+-------------------------------------------------------
+|  config   |  INDEX                    |      6      |
+
+Written 14 ddls with user objects from total 20 in schema DIETPLAN
+Skip processing 6 user objects from total 20 in schema DIETPLAN
+scheme2ddl of schema DIETPLAN completed in 1 seconds
+Processing schema  [DIETPLAN] completed 

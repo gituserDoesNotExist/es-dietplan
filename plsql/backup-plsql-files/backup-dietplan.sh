@@ -10,10 +10,10 @@ echo "$logInfo start to back up files" >> $logFileName
 jarName='scheme2ddl-2.4.3-SNAPSHOT.jar'
 java -jar $jarName >> $logFileName
 
-echo '741eba1b' | sudo -kS git checkout develop
-echo '741eba1b' | sudo -kS git add .
-echo '741eba1b' | sudo -kS git commit -m "backed up files at $currentDate"
-echo '741eba1b' | sudo -kS git push
+git checkout develop
+git add .
+git commit -m "backed up files at $currentDate"
+git push
 
 
 exitStatus=$?

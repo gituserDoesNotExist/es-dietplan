@@ -23,7 +23,7 @@ then
 	echo "$logInfo error during backup!"
 fi
 
-nautilus .
+nautilus . & disown
 
 
 

@@ -4,9 +4,9 @@ BEGIN
     drop_table_safely('vitamine');
     drop_table_safely('mineralstoffe');
     drop_table_safely('brennstoffe');
-    drop_table_safely('food');
+    drop_table_safely('food_metadata');
     
-    drop_sequence_safely('seq_food');
+    drop_sequence_safely('seq_food_metadata');
     drop_sequence_safely('seq_vitamine');
     drop_sequence_safely('seq_mineralstoffe');
     drop_sequence_safely('seq_brennstoffe');
@@ -15,13 +15,13 @@ END;
 
 /*alle angaben in mg/100g */
 
-CREATE TABLE food (
+CREATE TABLE food_metadata (
     id     NUMBER(10) NOT NULL,
     name   VARCHAR2(100),
-    CONSTRAINT pk_food PRIMARY KEY ( id )
+    CONSTRAINT pk_food_metadata PRIMARY KEY ( id )
 );
 /
-CREATE SEQUENCE seq_food START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+CREATE SEQUENCE seq_food_metadata START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 CREATE TABLE vitamine (
     id                      NUMBER(10) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE vitamine (
     food_id                 NUMBER(10) NOT NULL,
     CONSTRAINT pk_vitamine PRIMARY KEY ( id ),
     CONSTRAINT fk_vitamine_food FOREIGN KEY ( food_id )
-        REFERENCES food ( id )
+        REFERENCES food_metadata ( id )
 );
 /
 CREATE SEQUENCE seq_vitamine START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
@@ -62,7 +62,7 @@ CREATE TABLE mineralstoffe (
     food_id     NUMBER(10) NOT NULL,
     CONSTRAINT pk_mineralstoffe PRIMARY KEY ( id ),
     CONSTRAINT fk_mineralstoffe_food FOREIGN KEY ( food_id )
-        REFERENCES food ( id )
+        REFERENCES food_metadata ( id )
 );
 /
 CREATE SEQUENCE seq_mineralstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
@@ -76,7 +76,7 @@ CREATE TABLE brennstoffe (
     food_id         NUMBER(10) NOT NULL,
     CONSTRAINT pk_brennstoffe PRIMARY KEY ( id ),
     CONSTRAINT fk_brennstoffe_food FOREIGN KEY ( food_id )
-        REFERENCES food ( id )
+        REFERENCES food_metadata ( id )
 );
 /
 CREATE SEQUENCE seq_brennstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;

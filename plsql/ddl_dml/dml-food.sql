@@ -1,8 +1,8 @@
-INSERT INTO food (
+INSERT INTO food_metadata (
     id,
     name
 ) VALUES (
-    seq_food.nextval,
+    seq_food_metadata.nextval,
     'apple'
 );
 

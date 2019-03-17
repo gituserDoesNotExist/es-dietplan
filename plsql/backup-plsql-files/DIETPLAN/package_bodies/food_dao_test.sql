@@ -40,6 +40,11 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
         new_id food_metadata.id%type;
     begin
         food_dao.create_food_metadata(new_id,null);
+        EXCEPTION
+          WHEN OTHERS THEN
+            ut.expect(sqlcode).to_equal(dietplan_exceptions.sql_err_code_not_null);
+            ut.expect(sqlerrm).to_be_like('%Der Name darf nicht null sein!%');
+            RAISE;
     end;
 
 

@@ -6,7 +6,7 @@ CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_DAO_TEST" AS
     PROCEDURE create_food_metadata;
 
     --%test(test that exception is raised if name is null)
-    --%throws(-1400)
+    --%throws(-20000)
     PROCEDURE create_food_metadata_inv_name;
 
 

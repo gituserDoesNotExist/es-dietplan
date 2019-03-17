@@ -10,29 +10,51 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
         RETURN current_id;
     END;
 
-    PROCEDURE test_create_food_metadata AS
+    PROCEDURE create_food_metadata AS
         old_max_id       food_metadata.id%TYPE;
         new_id           food_metadata.id%TYPE;
         r_inserted_row   food_metadata%rowtype;
     BEGIN
         old_max_id := get_max_id();
         
-        dbms_output.put_line('old max id=' || old_max_id);
-        
         food_dao.create_food_metadata(new_id, 'pear');
-        COMMIT;
+
         SELECT *
         INTO r_inserted_row
         FROM food_metadata
         WHERE id = new_id;
 
-        
-
-        ut.expect(new_id).to_equal(old_max_id+1);
+        ROLLBACK;
     
-        dbms_output.put_line('new record: id=' || r_inserted_row.id || ' and name=' || r_inserted_row.name);
+        ut.expect(new_id).to_(be_not_null());
+        ut.expect(new_id).to_be_greater_than(old_max_id);
+        ut.expect(r_inserted_row.id).to_equal(new_id);
+        ut.expect(r_inserted_row.name).to_equal('pear');
+        
+          
+    END create_food_metadata;
 
-    END test_create_food_metadata;
+
+
+    procedure create_food_metadata_inv_name is
+        new_id food_metadata.id%type;
+    begin
+        food_dao.create_food_metadata(new_id,null);
+    end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 END food_dao_test;
 /

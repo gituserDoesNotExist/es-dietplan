@@ -1,13 +1,12 @@
 CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_DAO_TEST" AS 
-    --%suite(Test the FOOD_DAO package)
-    --%rollback(manual)
+    --%suite(FOOD_DAO)
+    --%suitepath(integrationtest.abstract_integration_test)
     
-    --%test(test that data is inserted)
+    --%test(test that metadata is inserted)
     PROCEDURE create_food_metadata;
 
-    --%test(test that exception is raised if name is null)
-    --%throws(-20000)
-    PROCEDURE create_food_metadata_inv_name;
+    --%test(test that brennstoff is inserted)
+    procedure create_brennstoff;
 
 
 END food_dao_test;

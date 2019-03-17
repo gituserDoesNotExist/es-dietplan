@@ -1,5 +1,5 @@
 CREATE OR REPLACE PROCEDURE "DIETPLAN"."TEST_RUNNER" AS 
 BEGIN
-    ut.run('FOOD_DAO_TEST');
+    ut.run('dietplan:integrationtest');
 END TEST_RUNNER;
 /

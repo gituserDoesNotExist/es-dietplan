@@ -17,7 +17,7 @@ END;
 
 CREATE TABLE food_metadata (
     id     NUMBER(10) NOT NULL,
-    name   VARCHAR2(100),
+    name   VARCHAR2(100) NOT NULL,
     CONSTRAINT pk_food_metadata PRIMARY KEY ( id )
 );
 /

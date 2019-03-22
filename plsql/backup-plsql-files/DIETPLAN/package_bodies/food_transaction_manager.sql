@@ -1,16 +1,13 @@
 CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
 
     PROCEDURE create_complete_food (
-        food_id                    OUT                        food_metadata.id%TYPE,
-        food_name                  IN                         food_metadata.name%TYPE,
+        food_metadata_id           OUT                        food_metadata.id%TYPE,
+        food_metadata_name         IN                         food_metadata.name%TYPE,
         --###############################################################################
-        brennstoff_id              OUT                        brennstoffe.id%TYPE,
         brennstoff_fett            IN                         brennstoffe.fett%TYPE,
         brennstoff_eiweiss         IN                         brennstoffe.eiweiss%TYPE,
         brennstoff_kohlenhydrate   IN                         brennstoffe.kohlenhydrate%TYPE,
-        brennstoff_food_id         IN                         brennstoffe.food_id%TYPE,
         --###############################################################################
-        mineralstoff_id            OUT                        mineralstoffe.id%TYPE,
         mineralstoff_calcium       IN                         mineralstoffe.calcium%TYPE,
         mineralstoff_chlorid       IN                         mineralstoffe.chlorid%TYPE,
         mineralstoff_eisen         IN                         mineralstoffe.eisen%TYPE,
@@ -24,9 +21,7 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
         mineralstoff_phosphor      IN                         mineralstoffe.phosphor%TYPE,
         mineralstoff_schwefel      IN                         mineralstoffe.schwefel%TYPE,
         mineralstoff_zink          IN                         mineralstoffe.zink%TYPE,
-        mineralstoffe_food_id      IN                         mineralstoffe.food_id%TYPE,
         --###############################################################################
-        vitamin_id                 OUT                        vitamine.id%TYPE,
         vitamin_a_retinol          IN                         vitamine.vitamin_a_retinol%TYPE,
         vitamin_a_betacarotin      IN                         vitamine.vitamin_a_betacarotin%TYPE,
         vitamin_b1                 IN                         vitamine.vitamin_b1%TYPE,
@@ -36,29 +31,32 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
         vitamin_c                  IN                         vitamine.vitamin_c%TYPE,
         vitamin_d                  IN                         vitamine.vitamin_d%TYPE,
         vitamin_e                  IN                         vitamine.vitamin_e%TYPE,
-        vitamin_k                  IN                         vitamine.vitamin_k%TYPE,
-        vitamin_food_id            IN                         vitamine.food_id%TYPE
+        vitamin_k                  IN                         vitamine.vitamin_k%TYPE
     ) AS
+
+        brennstoff_id     brennstoffe.id%TYPE;
+        mineralstoff_id   mineralstoffe.id%TYPE;
+        vitamin_id        vitamine.id%TYPE;
     BEGIN
         COMMIT;
         SET TRANSACTION NAME 'new-lebensmittel';
-        food_dao.create_food_metadata(food_id, food_name);
+        food_dao.create_food_metadata(food_metadata_id, food_metadata_name);
         
-        food_dao.create_brennstoff(brennstoff_id, brennstoff_fett, brennstoff_eiweiss, brennstoff_kohlenhydrate, brennstoff_food_id
+        food_dao.create_brennstoff(brennstoff_id, brennstoff_fett, brennstoff_eiweiss, brennstoff_kohlenhydrate, food_metadata_id
         );
         
         food_dao.create_mineralstoff(mineralstoff_id, mineralstoff_calcium, mineralstoff_chlorid, mineralstoff_eisen, mineralstoff_fluorid
         , mineralstoff_iodid, mineralstoff_kalium, mineralstoff_kupfer, mineralstoff_mangan, mineralstoff_magnesium, mineralstoff_natrium
-        , mineralstoff_phosphor, mineralstoff_schwefel, mineralstoff_zink, mineralstoffe_food_id);
+        , mineralstoff_phosphor, mineralstoff_schwefel, mineralstoff_zink, food_metadata_id);
 
         food_dao.create_vitamin(vitamin_id, vitamin_a_retinol, vitamin_a_betacarotin, vitamin_b1, vitamin_b2, vitamin_b6, vitamin_b12
-        , vitamin_c, vitamin_d, vitamin_e, vitamin_k, vitamin_food_id);
+        , vitamin_c, vitamin_d, vitamin_e, vitamin_k, food_metadata_id);
 
         COMMIT;
-    
-    
-        
-        
+    EXCEPTION
+        WHEN OTHERS THEN
+            ROLLBACK;
+            RAISE;
     END create_complete_food;
 
 END food_transaction_manager;

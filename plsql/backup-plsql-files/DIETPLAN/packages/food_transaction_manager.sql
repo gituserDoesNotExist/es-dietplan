@@ -1,15 +1,12 @@
 CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
     PROCEDURE create_complete_food (
-        food_id                    OUT                        food_metadata.id%TYPE,
-        food_name                  IN                         food_metadata.name%TYPE,
+        food_metadata_id           OUT                        food_metadata.id%TYPE,
+        food_metadata_name         IN                         food_metadata.name%TYPE,
         --###############################################################################
-        brennstoff_id              OUT                        brennstoffe.id%TYPE,
         brennstoff_fett            IN                         brennstoffe.fett%TYPE,
         brennstoff_eiweiss         IN                         brennstoffe.eiweiss%TYPE,
         brennstoff_kohlenhydrate   IN                         brennstoffe.kohlenhydrate%TYPE,
-        brennstoff_food_id         IN                         brennstoffe.food_id%TYPE,
         --###############################################################################
-        mineralstoff_id            OUT                        mineralstoffe.id%TYPE,
         mineralstoff_calcium       IN                         mineralstoffe.calcium%TYPE,
         mineralstoff_chlorid       IN                         mineralstoffe.chlorid%TYPE,
         mineralstoff_eisen         IN                         mineralstoffe.eisen%TYPE,
@@ -23,9 +20,7 @@ CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
         mineralstoff_phosphor      IN                         mineralstoffe.phosphor%TYPE,
         mineralstoff_schwefel      IN                         mineralstoffe.schwefel%TYPE,
         mineralstoff_zink          IN                         mineralstoffe.zink%TYPE,
-        mineralstoffe_food_id      IN                         mineralstoffe.food_id%TYPE,
         --###############################################################################
-        vitamin_id                 OUT                        vitamine.id%TYPE,
         vitamin_a_retinol          IN                         vitamine.vitamin_a_retinol%TYPE,
         vitamin_a_betacarotin      IN                         vitamine.vitamin_a_betacarotin%TYPE,
         vitamin_b1                 IN                         vitamine.vitamin_b1%TYPE,
@@ -35,8 +30,7 @@ CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
         vitamin_c                  IN                         vitamine.vitamin_c%TYPE,
         vitamin_d                  IN                         vitamine.vitamin_d%TYPE,
         vitamin_e                  IN                         vitamine.vitamin_e%TYPE,
-        vitamin_k                  IN                         vitamine.vitamin_k%TYPE,
-        vitamin_food_id            IN                         vitamine.food_id%TYPE
+        vitamin_k                  IN                         vitamine.vitamin_k%TYPE
     );
 
 END food_transaction_manager;

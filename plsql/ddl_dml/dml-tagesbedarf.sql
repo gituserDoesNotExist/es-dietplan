@@ -1,7 +1,67 @@
-insert into tagesbedarf_mineralstoffe (id,calcium,chlorid,eisen,fluorid,iodid,kalium,kupfer,mangan,magnesium,natrium,phosphor,schwefel,zink)
-	values (1,2,2,2,2,2,2,2,2,2,2,2,2,2);
+    INSERT INTO tagesbedarf_mineralstoffe (
+        id,
+        created_at,
+        last_modified,
+        calcium,
+        chlorid,
+        eisen,
+        fluorid,
+        iodid,
+        kalium,
+        kupfer,
+        mangan,
+        magnesium,
+        natrium,
+        phosphor,
+        schwefel,
+        zink
+    ) VALUES (
+        1,
+        systimestamp,
+        systimestamp,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+    );
 /
 
-insert into tagesbedarf_vitamine (id,vitaminARetinol,vitaminABetaCarotin,vitaminB1,vitaminB2,vitaminB6,vitaminB12,vitaminC,vitaminD,vitaminE,vitaminK)
-	values (1,2,2,2,2,2,2,2,2,2,2);
+    INSERT INTO tagesbedarf_vitamine (
+        id,
+        created_at,
+        last_modified,
+        vitaminaretinol,
+        vitaminabetacarotin,
+        vitaminb1,
+        vitaminb2,
+        vitaminb6,
+        vitaminb12,
+        vitaminc,
+        vitamind,
+        vitamine,
+        vitamink
+    ) VALUES (
+        1,
+        systimestamp,
+        systimestamp,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+    );
 /

@@ -5,7 +5,6 @@ BEGIN
     drop_table_safely('mineralstoffe');
     drop_table_safely('brennstoffe');
     drop_table_safely('food_metadata');
-    
     drop_sequence_safely('seq_food_metadata');
     drop_sequence_safely('seq_vitamine');
     drop_sequence_safely('seq_mineralstoffe');
@@ -16,15 +15,20 @@ END;
 /*alle angaben in mg/100g */
 
 CREATE TABLE food_metadata (
-    id     NUMBER(10) NOT NULL,
-    name   VARCHAR2(100) NOT NULL,
+    id              NUMBER(10) NOT NULL,
+    created_at      TIMESTAMP NOT NULL,
+    last_modified   TIMESTAMP NOT NULL,
+    name            VARCHAR2(100) NOT NULL,
     CONSTRAINT pk_food_metadata PRIMARY KEY ( id )
 );
 /
+
 CREATE SEQUENCE seq_food_metadata START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 CREATE TABLE vitamine (
     id                      NUMBER(10) NOT NULL,
+    created_at              TIMESTAMP NOT NULL,
+    last_modified           TIMESTAMP NOT NULL,
     vitamin_a_retinol       BINARY_FLOAT,
     vitamin_a_betacarotin   BINARY_FLOAT,
     vitamin_b1              BINARY_FLOAT,
@@ -41,35 +45,41 @@ CREATE TABLE vitamine (
         REFERENCES food_metadata ( id )
 );
 /
+
 CREATE SEQUENCE seq_vitamine START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 -- mineralstoffe k�nnen in Mengen- und Spurenelemente unterteilt werden
+
 CREATE TABLE mineralstoffe (
-    id          NUMBER(10) NOT NULL,
-    calcium     BINARY_FLOAT,
-    chlorid     BINARY_FLOAT,
-    eisen       BINARY_FLOAT,
-    fluorid     BINARY_FLOAT,
-    iodid       BINARY_FLOAT,
-    kalium      BINARY_FLOAT,
-    kupfer      BINARY_FLOAT,
-    mangan      BINARY_FLOAT,
-    magnesium   BINARY_FLOAT,
-    natrium     BINARY_FLOAT,
-    phosphor    BINARY_FLOAT,
-    schwefel    BINARY_FLOAT,
-    zink        BINARY_FLOAT,
-    food_id     NUMBER(10) NOT NULL,
+    id              NUMBER(10) NOT NULL,
+    created_at      TIMESTAMP NOT NULL,
+    last_modified   TIMESTAMP NOT NULL,
+    calcium         BINARY_FLOAT,
+    chlorid         BINARY_FLOAT,
+    eisen           BINARY_FLOAT,
+    fluorid         BINARY_FLOAT,
+    iodid           BINARY_FLOAT,
+    kalium          BINARY_FLOAT,
+    kupfer          BINARY_FLOAT,
+    mangan          BINARY_FLOAT,
+    magnesium       BINARY_FLOAT,
+    natrium         BINARY_FLOAT,
+    phosphor        BINARY_FLOAT,
+    schwefel        BINARY_FLOAT,
+    zink            BINARY_FLOAT,
+    food_id         NUMBER(10) NOT NULL,
     CONSTRAINT pk_mineralstoffe PRIMARY KEY ( id ),
     CONSTRAINT fk_mineralstoffe_food FOREIGN KEY ( food_id )
         REFERENCES food_metadata ( id )
 );
 /
-CREATE SEQUENCE seq_mineralstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
+CREATE SEQUENCE seq_mineralstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 CREATE TABLE brennstoffe (
     id              NUMBER(10) NOT NULL,
+    created_at      TIMESTAMP NOT NULL,
+    last_modified   TIMESTAMP NOT NULL,
     fett            BINARY_FLOAT,
     eiweiss         BINARY_FLOAT,
     kohlenhydrate   BINARY_FLOAT,
@@ -79,5 +89,5 @@ CREATE TABLE brennstoffe (
         REFERENCES food_metadata ( id )
 );
 /
-CREATE SEQUENCE seq_brennstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
+CREATE SEQUENCE seq_brennstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;

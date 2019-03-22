@@ -1,13 +1,19 @@
 INSERT INTO food_metadata (
     id,
+    created_at,
+    last_modified,
     name
 ) VALUES (
-    seq_food_metadata.nextval,
+    seq_food_metadata.NEXTVAL,
+    systimestamp,
+    systimestamp,
     'apple'
 );
 
 INSERT INTO vitamine (
     id,
+    created_at,
+    last_modified,
     vitamin_a_retinol,
     vitamin_a_betacarotin,
     vitamin_b1,
@@ -20,7 +26,9 @@ INSERT INTO vitamine (
     vitamin_k,
     food_id
 ) VALUES (
-    seq_vitamine.nextval,
+    seq_vitamine.NEXTVAL,
+    systimestamp,
+    systimestamp,
     2,
     2,
     2,
@@ -36,6 +44,8 @@ INSERT INTO vitamine (
 
 INSERT INTO mineralstoffe (
     id,
+    created_at,
+    last_modified,
     calcium,
     chlorid,
     eisen,
@@ -51,7 +61,9 @@ INSERT INTO mineralstoffe (
     zink,
     food_id
 ) VALUES (
-    seq_mineralstoffe.nextval,
+    seq_mineralstoffe.NEXTVAL,
+    systimestamp,
+    systimestamp,
     2,
     2,
     2,
@@ -70,12 +82,16 @@ INSERT INTO mineralstoffe (
 
 INSERT INTO brennstoffe (
     id,
+    created_at,
+    last_modified,
     fett,
     eiweiss,
     kohlenhydrate,
     food_id
 ) VALUES (
-    seq_brennstoffe.nextval,
+    seq_brennstoffe.NEXTVAL,
+    systimestamp,
+    systimestamp,
     2,
     2,
     2,

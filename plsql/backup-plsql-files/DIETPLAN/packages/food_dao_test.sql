@@ -6,8 +6,13 @@ CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_DAO_TEST" AS
     PROCEDURE create_food_metadata;
 
     --%test(test that brennstoff is inserted)
-    procedure create_brennstoff;
+    PROCEDURE create_brennstoff;
 
+    --%test(test that mineralstoff is inserted)
+    PROCEDURE create_mineralstoff;
+
+    --%test(test that vitamin is inserted)
+    PROCEDURE create_vitamin;
 
 END food_dao_test;
 /

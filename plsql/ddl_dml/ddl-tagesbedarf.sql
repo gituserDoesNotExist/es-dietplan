@@ -1,9 +1,8 @@
-EXECUTE drop_table_safely('tagesbedarf_vitamine');
-
-EXECUTE drop_table_safely('tagesbedarf_mineralstoffe');
+EXECUTE drop_utils.drop_table_safely('tagesbedarf_vitamine');
+EXECUTE drop_utils.drop_table_safely('tagesbedarf_mineralstoffe');
 
 CREATE TABLE tagesbedarf_vitamine (
-    id                    NUMBER(10) NOT NULL,
+    id                    integer NOT NULL,
     created_at            TIMESTAMP NOT NULL,
     last_modified         TIMESTAMP NOT NULL,
     vitaminaretinol       BINARY_FLOAT,
@@ -21,7 +20,7 @@ CREATE TABLE tagesbedarf_vitamine (
 /
 
 CREATE TABLE tagesbedarf_mineralstoffe (
-    id              NUMBER(10) NOT NULL,
+    id              integer NOT NULL,
     created_at      TIMESTAMP NOT NULL,
     last_modified   TIMESTAMP NOT NULL,
     calcium         BINARY_FLOAT,

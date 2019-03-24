@@ -1,21 +1,21 @@
 SET SERVEROUTPUT ON;
 
 BEGIN
-    drop_table_safely('vitamine');
-    drop_table_safely('mineralstoffe');
-    drop_table_safely('brennstoffe');
-    drop_table_safely('food_metadata');
-    drop_sequence_safely('seq_food_metadata');
-    drop_sequence_safely('seq_vitamine');
-    drop_sequence_safely('seq_mineralstoffe');
-    drop_sequence_safely('seq_brennstoffe');
+    drop_utils.drop_table_safely('vitamine');
+    drop_utils.drop_table_safely('mineralstoffe');
+    drop_utils.drop_table_safely('brennstoffe');
+    drop_utils.drop_table_safely('food_metadata');
+    drop_utils.drop_sequence_safely('seq_food_metadata');
+    drop_utils.drop_sequence_safely('seq_vitamine');
+    drop_utils.drop_sequence_safely('seq_mineralstoffe');
+    drop_utils.drop_sequence_safely('seq_brennstoffe');
 END;
 /
 
 /*alle angaben in mg/100g */
 
 CREATE TABLE food_metadata (
-    id              NUMBER(10) NOT NULL,
+    id              integer NOT NULL,
     created_at      TIMESTAMP NOT NULL,
     last_modified   TIMESTAMP NOT NULL,
     name            VARCHAR2(100) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE food_metadata (
 CREATE SEQUENCE seq_food_metadata START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 CREATE TABLE vitamine (
-    id                      NUMBER(10) NOT NULL,
+    id                      integer NOT NULL,
     created_at              TIMESTAMP NOT NULL,
     last_modified           TIMESTAMP NOT NULL,
     vitamin_a_retinol       BINARY_FLOAT,
@@ -39,7 +39,7 @@ CREATE TABLE vitamine (
     vitamin_d               BINARY_FLOAT,
     vitamin_e               BINARY_FLOAT,
     vitamin_k               BINARY_FLOAT,
-    food_id                 NUMBER(10) NOT NULL,
+    food_id                 integer NOT NULL,
     CONSTRAINT pk_vitamine PRIMARY KEY ( id ),
     CONSTRAINT fk_vitamine_food FOREIGN KEY ( food_id )
         REFERENCES food_metadata ( id )
@@ -51,7 +51,7 @@ CREATE SEQUENCE seq_vitamine START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 -- mineralstoffe k�nnen in Mengen- und Spurenelemente unterteilt werden
 
 CREATE TABLE mineralstoffe (
-    id              NUMBER(10) NOT NULL,
+    id              integer NOT NULL,
     created_at      TIMESTAMP NOT NULL,
     last_modified   TIMESTAMP NOT NULL,
     calcium         BINARY_FLOAT,
@@ -67,7 +67,7 @@ CREATE TABLE mineralstoffe (
     phosphor        BINARY_FLOAT,
     schwefel        BINARY_FLOAT,
     zink            BINARY_FLOAT,
-    food_id         NUMBER(10) NOT NULL,
+    food_id         integer NOT NULL,
     CONSTRAINT pk_mineralstoffe PRIMARY KEY ( id ),
     CONSTRAINT fk_mineralstoffe_food FOREIGN KEY ( food_id )
         REFERENCES food_metadata ( id )
@@ -77,13 +77,13 @@ CREATE TABLE mineralstoffe (
 CREATE SEQUENCE seq_mineralstoffe START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 CREATE TABLE brennstoffe (
-    id              NUMBER(10) NOT NULL,
+    id              integer NOT NULL,
     created_at      TIMESTAMP NOT NULL,
     last_modified   TIMESTAMP NOT NULL,
     fett            BINARY_FLOAT,
     eiweiss         BINARY_FLOAT,
     kohlenhydrate   BINARY_FLOAT,
-    food_id         NUMBER(10) NOT NULL,
+    food_id         integer NOT NULL,
     CONSTRAINT pk_brennstoffe PRIMARY KEY ( id ),
     CONSTRAINT fk_brennstoffe_food FOREIGN KEY ( food_id )
         REFERENCES food_metadata ( id )

@@ -1,36 +1,35 @@
 CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
 
-    PROCEDURE create_food_metadata (
-        food_id     OUT         food_metadata.id%TYPE,
-        food_name   IN          food_metadata.name%TYPE
+    PROCEDURE create_lebensmittel_metainfo (
+        metainfo IN OUT lebensmittel_metainfo
     ) IS
-        current_time TIMESTAMP := systimestamp;
+        current_timestamp TIMESTAMP := systimestamp;
     BEGIN
-        food_id := seq_food_metadata.nextval;
+        metainfo.entity_id := seq_food_metadata.nextval;
+        metainfo.created_at := current_timestamp;
+        metainfo.last_modified := current_timestamp;
         INSERT INTO food_metadata (
             id,
             created_at,
             last_modified,
             name
         ) VALUES (
-            food_id,
-            current_time,
-            current_time,
-            food_name
+            metainfo.entity_id,
+            metainfo.created_at,
+            metainfo.last_modified,
+            metainfo.bezeichnung
         );
 
-    END create_food_metadata;
+    END;
 
     PROCEDURE create_brennstoff (
-        brennstoff_id              OUT                        brennstoffe.id%TYPE,
-        brennstoff_fett            IN                         brennstoffe.fett%TYPE,
-        brennstoff_eiweiss         IN                         brennstoffe.eiweiss%TYPE,
-        brennstoff_kohlenhydrate   IN                         brennstoffe.kohlenhydrate%TYPE,
-        brennstoff_food_id         IN                         brennstoffe.food_id%TYPE
+        p_brennstoff IN OUT brennstoff
     ) IS
-        current_time TIMESTAMP := systimestamp;
+        current_timestamp TIMESTAMP := systimestamp;
     BEGIN
-        brennstoff_id := seq_brennstoffe.nextval;
+        p_brennstoff.entity_id := seq_brennstoffe.nextval;
+        p_brennstoff.created_at := current_timestamp;
+        p_brennstoff.last_modified := current_timestamp;
         INSERT INTO brennstoffe (
             id,
             created_at,
@@ -40,37 +39,25 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
             kohlenhydrate,
             food_id
         ) VALUES (
-            brennstoff_id,
-            current_time,
-            current_time,
-            brennstoff_fett,
-            brennstoff_eiweiss,
-            brennstoff_kohlenhydrate,
-            brennstoff_food_id
+            p_brennstoff.entity_id,
+            p_brennstoff.created_at,
+            p_brennstoff.last_modified,
+            p_brennstoff.fett,
+            p_brennstoff.eiweiss,
+            p_brennstoff.kohlenhydrate,
+            p_brennstoff.food_id
         );
 
     END;
 
     PROCEDURE create_mineralstoff (
-        mineralstoff_id          OUT                      mineralstoffe.id%TYPE,
-        mineralstoff_calcium     IN                       mineralstoffe.calcium%TYPE,
-        mineralstoff_chlorid     IN                       mineralstoffe.chlorid%TYPE,
-        mineralstoff_eisen       IN                       mineralstoffe.eisen%TYPE,
-        mineralstoff_fluorid     IN                       mineralstoffe.fluorid%TYPE,
-        mineralstoff_iodid       IN                       mineralstoffe.iodid%TYPE,
-        mineralstoff_kalium      IN                       mineralstoffe.kalium%TYPE,
-        mineralstoff_kupfer      IN                       mineralstoffe.kupfer%TYPE,
-        mineralstoff_mangan      IN                       mineralstoffe.mangan%TYPE,
-        mineralstoff_magnesium   IN                       mineralstoffe.magnesium%TYPE,
-        mineralstoff_natrium     IN                       mineralstoffe.natrium%TYPE,
-        mineralstoff_phosphor    IN                       mineralstoffe.phosphor%TYPE,
-        mineralstoff_schwefel    IN                       mineralstoffe.schwefel%TYPE,
-        mineralstoff_zink        IN                       mineralstoffe.zink%TYPE,
-        mineralstoffe_food_id    IN                       mineralstoffe.food_id%TYPE
+        p_mineralstoff IN OUT mineralstoff
     ) IS
-        current_time TIMESTAMP := systimestamp;
+        current_timestamp TIMESTAMP := systimestamp;
     BEGIN
-        mineralstoff_id := seq_mineralstoffe.nextval;
+        p_mineralstoff.entity_id := seq_mineralstoffe.nextval;
+        p_mineralstoff.created_at := current_timestamp;
+        p_mineralstoff.last_modified := current_timestamp;
         INSERT INTO mineralstoffe (
             id,
             created_at,
@@ -90,44 +77,35 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
             zink,
             food_id
         ) VALUES (
-            mineralstoff_id,
-            current_time,
-            current_time,
-            mineralstoff_calcium,
-            mineralstoff_chlorid,
-            mineralstoff_eisen,
-            mineralstoff_fluorid,
-            mineralstoff_iodid,
-            mineralstoff_kalium,
-            mineralstoff_kupfer,
-            mineralstoff_mangan,
-            mineralstoff_magnesium,
-            mineralstoff_natrium,
-            mineralstoff_phosphor,
-            mineralstoff_schwefel,
-            mineralstoff_zink,
-            mineralstoffe_food_id
+            p_mineralstoff.entity_id,
+            p_mineralstoff.created_at,
+            p_mineralstoff.last_modified,
+            p_mineralstoff.calcium,
+            p_mineralstoff.chlorid,
+            p_mineralstoff.eisen,
+            p_mineralstoff.fluorid,
+            p_mineralstoff.iodid,
+            p_mineralstoff.kalium,
+            p_mineralstoff.kupfer,
+            p_mineralstoff.mangan,
+            p_mineralstoff.magnesium,
+            p_mineralstoff.natrium,
+            p_mineralstoff.phosphor,
+            p_mineralstoff.schwefel,
+            p_mineralstoff.zink,
+            p_mineralstoff.food_id
         );
 
     END;
 
     PROCEDURE create_vitamin (
-        vitamin_id              OUT                     vitamine.id%TYPE,
-        vitamin_a_retinol       IN                      vitamine.vitamin_a_retinol%TYPE,
-        vitamin_a_betacarotin   IN                      vitamine.vitamin_a_betacarotin%TYPE,
-        vitamin_b1              IN                      vitamine.vitamin_b1%TYPE,
-        vitamin_b2              IN                      vitamine.vitamin_b2%TYPE,
-        vitamin_b6              IN                      vitamine.vitamin_b6%TYPE,
-        vitamin_b12             IN                      vitamine.vitamin_b12%TYPE,
-        vitamin_c               IN                      vitamine.vitamin_c%TYPE,
-        vitamin_d               IN                      vitamine.vitamin_d%TYPE,
-        vitamin_e               IN                      vitamine.vitamin_e%TYPE,
-        vitamin_k               IN                      vitamine.vitamin_k%TYPE,
-        vitamin_food_id         IN                      vitamine.food_id%TYPE
+        p_vitamin IN OUT vitamin
     ) IS
-        current_time TIMESTAMP := systimestamp;
+        current_timestamp TIMESTAMP := systimestamp;
     BEGIN
-        vitamin_id := seq_vitamine.nextval;
+        p_vitamin.entity_id := seq_vitamine.nextval;
+        p_vitamin.created_at := current_timestamp;
+        p_vitamin.last_modified := current_timestamp;
         INSERT INTO vitamine (
             id,
             created_at,
@@ -144,20 +122,20 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
             vitamin_k,
             food_id
         ) VALUES (
-            vitamin_id,
-            current_time,
-            current_time,
-            vitamin_a_retinol,
-            vitamin_a_betacarotin,
-            vitamin_b1,
-            vitamin_b2,
-            vitamin_b6,
-            vitamin_b12,
-            vitamin_c,
-            vitamin_d,
-            vitamin_e,
-            vitamin_k,
-            vitamin_food_id
+            p_vitamin.entity_id,
+            p_vitamin.created_at,
+            p_vitamin.last_modified,
+            p_vitamin.vit_a_retinol,
+            p_vitamin.vit_a_betacarotin,
+            p_vitamin.vit_b1,
+            p_vitamin.vit_b2,
+            p_vitamin.vit_b6,
+            p_vitamin.vit_b12,
+            p_vitamin.vit_c,
+            p_vitamin.vit_d,
+            p_vitamin.vit_e,
+            p_vitamin.vit_k,
+            p_vitamin.food_id
         );
 
     END;

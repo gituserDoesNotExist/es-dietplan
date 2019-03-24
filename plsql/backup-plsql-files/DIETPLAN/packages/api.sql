@@ -1,7 +1,7 @@
 CREATE OR REPLACE PACKAGE "DIETPLAN"."API" IS
     PROCEDURE create_complete_food (
-        food_metadata_id           OUT                        food_metadata.id%TYPE,
-        food_metadata_name         IN                         food_metadata.name%TYPE,
+        lebensmittel_metainfo_id           OUT                        food_metadata.id%TYPE,
+        lebensmittel_metainfo_name         IN                         food_metadata.name%TYPE,
         --###############################################################################
         brennstoff_fett            IN                         brennstoffe.fett%TYPE,
         brennstoff_eiweiss         IN                         brennstoffe.eiweiss%TYPE,

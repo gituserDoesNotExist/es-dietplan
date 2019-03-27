@@ -51,7 +51,7 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."API" AS
         mineralstoff_iodid, mineralstoff_kalium, mineralstoff_kupfer, mineralstoff_mangan, mineralstoff_magnesium, mineralstoff_natrium
         , mineralstoff_phosphor, mineralstoff_schwefel, mineralstoff_zink, next_food_id);
 
-        food_transaction_manager.create_complete_food(t_metainfo,t_brennstoff,t_vitamin,t_mineralstoff);
+        food_service.insert_new_lebensmittel(t_metainfo,t_vitamin,t_brennstoff,t_mineralstoff);
 
 
     END create_complete_food;

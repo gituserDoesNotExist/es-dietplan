@@ -1,9 +1,9 @@
 CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
 
-    PROCEDURE create_complete_food (
+    PROCEDURE insert_new_lebensmittel (
         t_metainfo       IN OUT           lebensmittel_metainfo,
-        t_brennstoff     IN OUT           brennstoff,
         t_vitamin        IN OUT           vitamin,
+        t_brennstoff     IN OUT           brennstoff,
         t_mineralstoff   IN OUT           mineralstoff
     ) AS
 
@@ -26,7 +26,7 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_TRANSACTION_MANAGER" AS
         WHEN OTHERS THEN
             ROLLBACK;
             RAISE;
-    END create_complete_food;
+    END insert_new_lebensmittel;
 
 END food_transaction_manager;
 /

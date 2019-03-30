@@ -1,6 +1,10 @@
-EXECUTE drop_utils.drop_object_type_safely('lebensmittel_metainfo');
+SET SERVEROUTPUT ON;
+
+EXECUTE drop_utils.drop_object_type_safely('lebensmittel');
 
 EXECUTE drop_utils.drop_object_type_safely('vitamin');
+
+EXECUTE drop_utils.drop_object_type_safely('brennstoff');
 
 EXECUTE drop_utils.drop_object_type_safely('mineralstoff');
 
@@ -40,28 +44,6 @@ CREATE OR REPLACE TYPE BODY base_entity AS
         END IF;
         RETURN self.entity_id = other_entity.entity_id;
     END equals;
-
-END;
-/
-
-CREATE OR REPLACE TYPE lebensmittel_metainfo UNDER base_entity (
-    bezeichnung VARCHAR2(100),
-    CONSTRUCTOR FUNCTION lebensmittel_metainfo (
-           self IN OUT NOCOPY lebensmittel_metainfo,
-           p_bezeichnung VARCHAR2
-       ) RETURN SELF AS RESULT
-)
-/
-
-CREATE OR REPLACE TYPE BODY lebensmittel_metainfo AS
-    CONSTRUCTOR FUNCTION lebensmittel_metainfo (
-        self IN OUT NOCOPY lebensmittel_metainfo,
-        p_bezeichnung VARCHAR2
-    ) RETURN SELF AS RESULT AS
-    BEGIN
-        self.bezeichnung := p_bezeichnung;
-        return;
-    END lebensmittel_metainfo;
 
 END;
 /
@@ -202,7 +184,6 @@ CREATE OR REPLACE TYPE BODY mineralstoff AS
 END;
 /
 
-
 CREATE OR REPLACE TYPE brennstoff UNDER base_entity (
     fett            BINARY_FLOAT,
     eiweiss         BINARY_FLOAT,
@@ -212,29 +193,150 @@ CREATE OR REPLACE TYPE brennstoff UNDER base_entity (
            self IN OUT NOCOPY brennstoff,
            fett            BINARY_FLOAT,
            eiweiss         BINARY_FLOAT,
-           kohlenhydrate   binary_float,
+           kohlenhydrate   BINARY_FLOAT,
            food_id         INTEGER
        ) RETURN SELF AS RESULT
 )
 /
 
-
-CREATE OR REPLACE
-TYPE BODY BRENNSTOFF AS
-
-  CONSTRUCTOR FUNCTION brennstoff (
-           self IN OUT NOCOPY brennstoff,
-           fett            BINARY_FLOAT,
-           eiweiss         BINARY_FLOAT,
-           kohlenhydrate   binary_float,
-           food_id         INTEGER
-       ) RETURN SELF AS RESULT AS
-  BEGIN
-    self.fett := fett;
-    self.eiweiss := eiweiss;
-    self.kohlenhydrate := kohlenhydrate;
-    self.food_id := food_id;
-    RETURN;
-  END brennstoff;
+CREATE OR REPLACE TYPE BODY brennstoff AS
+    CONSTRUCTOR FUNCTION brennstoff (
+        self IN OUT NOCOPY brennstoff,
+        fett            BINARY_FLOAT,
+        eiweiss         BINARY_FLOAT,
+        kohlenhydrate   BINARY_FLOAT,
+        food_id         INTEGER
+    ) RETURN SELF AS RESULT AS
+    BEGIN
+        self.fett := fett;
+        self.eiweiss := eiweiss;
+        self.kohlenhydrate := kohlenhydrate;
+        self.food_id := food_id;
+        return;
+    END brennstoff;
 
 END;
+/
+
+CREATE OR REPLACE TYPE lebensmittel UNDER base_entity (
+    v_bezeichnung    VARCHAR2(100),
+    t_vitamin        vitamin,
+    t_mineralstoff   mineralstoff,
+    t_brennstoff     brennstoff,
+    CONSTRUCTOR FUNCTION lebensmittel (
+           self IN OUT NOCOPY lebensmittel,
+           p_bezeichnung VARCHAR2
+       ) RETURN SELF AS RESULT,
+    CONSTRUCTOR FUNCTION lebensmittel (
+           self IN OUT NOCOPY lebensmittel,
+           p_bezeichnung    VARCHAR2,
+           p_vitamin        IN               vitamin,
+           p_mineralstoff   IN               mineralstoff,
+           p_brennstoff     brennstoff
+       ) RETURN SELF AS RESULT
+)
+/
+
+CREATE OR REPLACE TYPE BODY lebensmittel AS
+    CONSTRUCTOR FUNCTION lebensmittel (
+        self IN OUT NOCOPY lebensmittel,
+        p_bezeichnung VARCHAR2
+    ) RETURN SELF AS RESULT IS
+    BEGIN
+        self := lebensmittel(p_bezeichnung, NULL, NULL, NULL);
+        return;
+    END;
+
+    CONSTRUCTOR FUNCTION lebensmittel (
+        self IN OUT NOCOPY lebensmittel,
+        p_bezeichnung    IN               VARCHAR2,
+        p_vitamin        IN               vitamin,
+        p_mineralstoff   IN               mineralstoff,
+        p_brennstoff     IN               brennstoff
+    ) RETURN SELF AS RESULT IS
+    BEGIN
+        self.v_bezeichnung := p_bezeichnung;
+        self.t_vitamin := p_vitamin;
+        self.t_mineralstoff := p_mineralstoff;
+        self.t_brennstoff := t_brennstoff;
+        return;
+    END lebensmittel;
+
+END;
+/
+
+CREATE OR REPLACE TYPE lebensmittel_builder AS OBJECT (
+    t_lebensmittel lebensmittel,
+    CONSTRUCTOR FUNCTION lebensmittel_builder (
+           self IN OUT NOCOPY lebensmittel_builder,
+           p_bezeichnung VARCHAR2
+       ) RETURN SELF AS RESULT,
+    STATIC FUNCTION a_lebensmittel (
+           p_bezeichnung VARCHAR2
+       ) RETURN lebensmittel_builder,
+    MEMBER FUNCTION with_vitamin (
+           p_vitamin IN vitamin
+       ) RETURN lebensmittel_builder,
+    MEMBER FUNCTION with_brennstoff (
+           p_brennstoff IN brennstoff
+       ) RETURN lebensmittel_builder,
+    MEMBER FUNCTION with_mineralstoff (
+           p_mineralstoff IN mineralstoff
+       ) RETURN lebensmittel_builder,
+    MEMBER FUNCTION build_lebensmittel RETURN lebensmittel
+);
+/
+
+CREATE OR REPLACE TYPE BODY lebensmittel_builder AS
+    CONSTRUCTOR FUNCTION lebensmittel_builder (
+        self            IN OUT          lebensmittel_builder,
+        p_bezeichnung   VARCHAR2
+    ) RETURN SELF AS RESULT IS
+    BEGIN
+        t_lebensmittel := NEW lebensmittel(p_bezeichnung);
+        return;
+    END;
+
+    STATIC FUNCTION a_lebensmittel (
+        p_bezeichnung VARCHAR2
+    ) RETURN lebensmittel_builder IS
+    BEGIN
+        RETURN NEW lebensmittel_builder(p_bezeichnung);
+    END;
+
+    MEMBER FUNCTION with_vitamin (
+        p_vitamin IN vitamin
+    ) RETURN lebensmittel_builder IS
+        self_copy lebensmittel_builder := self;
+    BEGIN
+        self_copy.t_lebensmittel.t_vitamin := p_vitamin;
+        RETURN self_copy;
+    END;
+
+    MEMBER FUNCTION with_brennstoff (
+        p_brennstoff IN brennstoff
+    ) RETURN lebensmittel_builder IS
+        self_copy lebensmittel_builder := self;
+    BEGIN
+        self_copy.t_lebensmittel.t_brennstoff := p_brennstoff;
+        RETURN self_copy;
+    END;
+
+    MEMBER FUNCTION with_mineralstoff (
+        p_mineralstoff IN mineralstoff
+    ) RETURN lebensmittel_builder IS
+        self_copy lebensmittel_builder := self;
+    BEGIN
+        self_copy.t_lebensmittel.t_mineralstoff := p_mineralstoff;
+        RETURN self_copy;
+    END;
+
+    MEMBER FUNCTION build_lebensmittel RETURN lebensmittel AS
+    BEGIN
+        RETURN self.t_lebensmittel;
+    END;
+
+END;
+/
+
+COMMIT;

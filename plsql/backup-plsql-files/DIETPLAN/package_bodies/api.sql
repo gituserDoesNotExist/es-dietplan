@@ -1,6 +1,6 @@
 CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."API" AS
 
-    PROCEDURE create_complete_food (
+    FUNCTION create_complete_food (
         lebensmittel_metainfo_id     OUT                          food_metadata.id%TYPE,
         lebensmittel_metainfo_name   IN                           food_metadata.name%TYPE,
         --###############################################################################
@@ -32,28 +32,26 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."API" AS
         vitamin_d                    IN                           vitamine.vitamin_d%TYPE,
         vitamin_e                    IN                           vitamine.vitamin_e%TYPE,
         vitamin_k                    IN                           vitamine.vitamin_k%TYPE
-    ) AS
+    ) RETURN food_metadata.id%TYPE IS
         next_food_id     food_metadata.id%TYPE;
-        t_lebensmittel       lebensmittel;
+        t_lebensmittel   lebensmittel;
         t_brennstoff     brennstoff;
         t_vitamin        vitamin;
         t_mineralstoff   mineralstoff;
     BEGIN
         dbms_output.put_line('inserting into tables');
         t_brennstoff := NEW brennstoff(brennstoff_fett, brennstoff_eiweiss, brennstoff_kohlenhydrate, next_food_id);
+        t_vitamin := NEW vitamin(vitamin_a_retinol, vitamin_a_betacarotin, vitamin_b1, vitamin_b2, vitamin_b6, vitamin_b12, vitamin_c, vitamin_d, vitamin_e, vitamin_k
+        , next_food_id);
+
+        t_mineralstoff := NEW mineralstoff(mineralstoff_calcium, mineralstoff_chlorid, mineralstoff_eisen, mineralstoff_fluorid, mineralstoff_iodid, mineralstoff_kalium
+        , mineralstoff_kupfer, mineralstoff_mangan, mineralstoff_magnesium, mineralstoff_natrium, mineralstoff_phosphor, mineralstoff_schwefel, mineralstoff_zink
+
+        , next_food_id);
+
+        t_lebensmittel := NEW lebensmittel(lebensmittel_metainfo_name, t_vitamin, t_mineralstoff, t_brennstoff);
         
-        t_vitamin := NEW vitamin(vitamin_a_retinol, vitamin_a_betacarotin, vitamin_b1, vitamin_b2, vitamin_b6, vitamin_b12, vitamin_c
-        , vitamin_d, vitamin_e, vitamin_k, next_food_id);
-
-        t_mineralstoff := NEW mineralstoff(mineralstoff_calcium, mineralstoff_chlorid, mineralstoff_eisen, mineralstoff_fluorid,
-        mineralstoff_iodid, mineralstoff_kalium, mineralstoff_kupfer, mineralstoff_mangan, mineralstoff_magnesium, mineralstoff_natrium
-        , mineralstoff_phosphor, mineralstoff_schwefel, mineralstoff_zink, next_food_id);
-        
-        t_lebensmittel := NEW lebensmittel(lebensmittel_metainfo_name,t_vitamin,t_mineralstoff,t_brennstoff);
-
-        food_service.insert_new_lebensmittel(t_metainfo,t_vitamin,t_brennstoff,t_mineralstoff);
-
-
+        RETURN food_service.insert_new_lebensmittel(t_lebensmittel);
     END create_complete_food;
 
 END api;

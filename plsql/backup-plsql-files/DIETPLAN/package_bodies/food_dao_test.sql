@@ -1,6 +1,7 @@
 CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
 
-    v_lebensmittel_bezeichnung VARCHAR2(20) := 'apple';
+    v_lebensmittel_bezeichnung   food_metadata.name%TYPE := 'apple';
+    i_lebensmittel_id            food_metadata.id%TYPE;
 
     PROCEDURE create_lebensmittel_metainfo AS
 
@@ -13,12 +14,12 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
         INTO old_max_id
         FROM food_metadata;
 
-        food_dao.create_lebensmittel(t_lebensmittel);
+        i_lebensmittel_id := food_dao.create_lebensmittel(t_lebensmittel);
         dbms_output.put_line('id=' || t_lebensmittel.entity_id);
         SELECT *
         INTO r_inserted_row
         FROM food_metadata fm
-        WHERE fm.id = t_lebensmittel.entity_id;
+        WHERE fm.id = i_lebensmittel_id;
 
         ut.expect(t_lebensmittel.entity_id).to_be_greater_than(old_max_id);
         ut.expect(r_inserted_row.name).to_equal(t_lebensmittel.v_bezeichnung);
@@ -44,14 +45,14 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
         INTO old_max_id
         FROM brennstoffe;
 
-        food_dao.create_lebensmittel(t_lebensmittel);
-        
+        i_lebensmittel_id := food_dao.create_lebensmittel(t_lebensmittel);
         SELECT *
         INTO r_inserted_row
         FROM brennstoffe
         WHERE id = t_lebensmittel.t_brennstoff.entity_id;
 
         ROLLBACK;
+        ut.expect(i_lebensmittel_id).to_equal(t_lebensmittel.t_brennstoff.food_id);
         ut.expect(t_lebensmittel.t_brennstoff.entity_id).to_(be_not_null());
         ut.expect(t_lebensmittel.t_brennstoff.entity_id).to_be_greater_than(old_max_id);
         ut.expect(r_inserted_row.id).to_equal(t_lebensmittel.t_brennstoff.entity_id);
@@ -85,19 +86,20 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
         food_id              mineralstoffe.food_id%TYPE := 1; --this row is already inserted in dmls
         t_mineralstoff       mineralstoff := NEW mineralstoff(calcium, chlorid, eisen, fluorid, iodid, kalium, kupfer, magnesium, mangan, natrium, phosphor, schwefel, zink
         , food_id);
-        t_lebensmittel lebensmittel := lebensmittel_builder.a_lebensmittel(v_lebensmittel_bezeichnung).with_mineralstoff(t_mineralstoff).build_lebensmittel();
-        BEGIN
+        t_lebensmittel       lebensmittel := lebensmittel_builder.a_lebensmittel(v_lebensmittel_bezeichnung).with_mineralstoff(t_mineralstoff).build_lebensmittel();
+    BEGIN
         SELECT MAX(id)
         INTO old_max_id
         FROM mineralstoffe;
 
-        food_dao.create_lebensmittel(t_lebensmittel);
+        i_lebensmittel_id := food_dao.create_lebensmittel(t_lebensmittel);
         SELECT *
         INTO r_inserted_row
         FROM mineralstoffe
         WHERE id = t_lebensmittel.t_mineralstoff.entity_id;
 
         ROLLBACK;
+        ut.expect(i_lebensmittel_id).to_equal(t_lebensmittel.t_mineralstoff.food_id);
         ut.expect(t_lebensmittel.t_mineralstoff.entity_id).to_(be_not_null());
         ut.expect(t_lebensmittel.t_mineralstoff.entity_id).to_be_greater_than(old_max_id);
         ut.expect(r_inserted_row.id).to_equal(t_lebensmittel.t_mineralstoff.entity_id);
@@ -138,19 +140,20 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO_TEST" IS
         food_id                 vitamine.food_id%TYPE := 1; --this row is already inserted in dmls
         t_vitamin               vitamin := NEW vitamin(vitamin_a_retinol, vitamin_a_betacarotin, vitamin_b1, vitamin_b2, vitamin_b6, vitamin_b12, vitamin_c, vitamin_d, vitamin_e
         , vitamin_k, food_id);
-        t_lebensmittel lebensmittel := lebensmittel_builder.a_lebensmittel(v_lebensmittel_bezeichnung).with_vitamin(t_vitamin).build_lebensmittel();
+        t_lebensmittel          lebensmittel := lebensmittel_builder.a_lebensmittel(v_lebensmittel_bezeichnung).with_vitamin(t_vitamin).build_lebensmittel();
     BEGIN
         SELECT MAX(id)
         INTO old_max_id
         FROM vitamine;
 
-        food_dao.create_lebensmittel(t_lebensmittel);
+        i_lebensmittel_id := food_dao.create_lebensmittel(t_lebensmittel);
         SELECT *
         INTO r_inserted_row
         FROM vitamine
         WHERE id = t_lebensmittel.t_vitamin.entity_id;
 
         ROLLBACK;
+        ut.expect(i_lebensmittel_id).to_equal(t_lebensmittel.t_vitamin.food_id);
         ut.expect(t_lebensmittel.t_vitamin.entity_id).to_(be_not_null());
         ut.expect(t_lebensmittel.t_vitamin.entity_id).to_be_greater_than(old_max_id);
         ut.expect(r_inserted_row.id).to_equal(t_lebensmittel.t_vitamin.entity_id);

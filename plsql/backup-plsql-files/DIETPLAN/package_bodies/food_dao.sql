@@ -56,8 +56,6 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
         current_timestamp TIMESTAMP := systimestamp;
     BEGIN
         dbms_output.put_line('hello from food dao' || p_mineralstoff.food_id);
-    
-    
         p_mineralstoff.entity_id := seq_mineralstoffe.nextval;
         p_mineralstoff.created_at := current_timestamp;
         p_mineralstoff.last_modified := current_timestamp;
@@ -143,9 +141,9 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
 
     END;
 
-    PROCEDURE create_lebensmittel (
+    FUNCTION create_lebensmittel (
         t_lebensmittel IN OUT lebensmittel
-    ) IS
+    ) RETURN food_metadata.id%TYPE IS
     BEGIN
         create_lebensmittel_metainfo(t_lebensmittel);
         IF t_lebensmittel.t_vitamin IS NOT NULL THEN
@@ -155,7 +153,6 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
 
         IF t_lebensmittel.t_brennstoff IS NOT NULL THEN
             t_lebensmittel.t_brennstoff.food_id := t_lebensmittel.entity_id;
-            dbms_output.put_line('id=' || t_lebensmittel.t_brennstoff.food_id);
             create_brennstoff(t_lebensmittel.t_brennstoff);
         END IF;
 
@@ -164,6 +161,7 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
             create_mineralstoff(t_lebensmittel.t_mineralstoff);
         END IF;
 
+        RETURN t_lebensmittel.entity_id;
     END;
 
 END food_dao;

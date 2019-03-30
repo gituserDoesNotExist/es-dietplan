@@ -1,5 +1,6 @@
 CREATE OR REPLACE TYPE "DIETPLAN"."LEBENSMITTEL" UNDER base_entity (
     v_bezeichnung    VARCHAR2(100),
+    vsdf varchar2(100),
     t_vitamin        vitamin,
     t_mineralstoff   mineralstoff,
     t_brennstoff     brennstoff,

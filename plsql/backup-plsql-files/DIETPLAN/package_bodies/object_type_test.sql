@@ -36,11 +36,34 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."OBJECT_TYPE_TEST" AS
     END test_equals;
 
     PROCEDURE test_lebensmittel_metainfo AS
-    bez varchar2(100);
-    metainfo lebensmittel_metainfo := NEW lebensmittel_metainfo('apple');
+
+        bez              VARCHAR2(100);
+        t_lebensmittel   lebensmittel := NEW lebensmittel('apple', NULL, NULL, NULL);
     BEGIN
-        bez := metainfo.bezeichnung;
+        bez := t_lebensmittel.v_bezeichnung;
         ut.expect(bez).to_equal('apple');
+    END;
+
+    PROCEDURE test_lebensmittel_builder AS
+
+        v_bezeichnung     VARCHAR2(20) := 'apple';
+        n_fett            BINARY_FLOAT := 200;
+        n_eiweiss         BINARY_FLOAT := 201;
+        n_kohlenhydrate   BINARY_FLOAT := 202;
+        n_food_id         INTEGER := 3;
+        t_brennstoff      brennstoff := NEW brennstoff(n_fett, n_eiweiss, n_kohlenhydrate, n_food_id);
+        t_result          lebensmittel;
+        builder           lebensmittel_builder;
+        expec             brennstoff;
+    BEGIN
+        t_result := lebensmittel_builder.a_lebensmittel(v_bezeichnung).build_lebensmittel();
+        ut.expect(t_result.v_bezeichnung).to_equal(v_bezeichnung);
+        --
+        builder := lebensmittel_builder.a_lebensmittel(v_bezeichnung).with_brennstoff(t_brennstoff);
+        builder := builder.with_brennstoff(t_brennstoff);
+        t_result := builder.build_lebensmittel();
+        ut.expect(t_result.v_bezeichnung).to_equal(v_bezeichnung);
+        ut.expect(t_result.t_brennstoff.fett).to_equal(n_fett);
     END;
 
 END object_type_test;

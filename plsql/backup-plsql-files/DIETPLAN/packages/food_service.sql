@@ -1,9 +1,6 @@
 CREATE OR REPLACE PACKAGE "DIETPLAN"."FOOD_SERVICE" AS
     PROCEDURE insert_new_lebensmittel (
-        t_metainfo       IN OUT lebensmittel_metainfo,
-        t_vitamin        IN OUT vitamin,
-        t_brennstoff     IN OUT brennstoff,
-        t_mineralstoff   IN OUT mineralstoff
+        t_lebensmittel IN OUT lebensmittel
     );
 
 END food_service;

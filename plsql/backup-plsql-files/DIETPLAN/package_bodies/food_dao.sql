@@ -1,23 +1,23 @@
 CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
 
     PROCEDURE create_lebensmittel_metainfo (
-        metainfo IN OUT lebensmittel_metainfo
+        t_lebensmittel IN OUT lebensmittel
     ) IS
         current_timestamp TIMESTAMP := systimestamp;
     BEGIN
-        metainfo.entity_id := seq_food_metadata.nextval;
-        metainfo.created_at := current_timestamp;
-        metainfo.last_modified := current_timestamp;
+        t_lebensmittel.entity_id := seq_food_metadata.nextval;
+        t_lebensmittel.created_at := current_timestamp;
+        t_lebensmittel.last_modified := current_timestamp;
         INSERT INTO food_metadata (
             id,
             created_at,
             last_modified,
             name
         ) VALUES (
-            metainfo.entity_id,
-            metainfo.created_at,
-            metainfo.last_modified,
-            metainfo.bezeichnung
+            t_lebensmittel.entity_id,
+            t_lebensmittel.created_at,
+            t_lebensmittel.last_modified,
+            t_lebensmittel.v_bezeichnung
         );
 
     END;
@@ -55,6 +55,9 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
     ) IS
         current_timestamp TIMESTAMP := systimestamp;
     BEGIN
+        dbms_output.put_line('hello from food dao' || p_mineralstoff.food_id);
+    
+    
         p_mineralstoff.entity_id := seq_mineralstoffe.nextval;
         p_mineralstoff.created_at := current_timestamp;
         p_mineralstoff.last_modified := current_timestamp;
@@ -137,6 +140,29 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."FOOD_DAO" IS
             p_vitamin.vit_k,
             p_vitamin.food_id
         );
+
+    END;
+
+    PROCEDURE create_lebensmittel (
+        t_lebensmittel IN OUT lebensmittel
+    ) IS
+    BEGIN
+        create_lebensmittel_metainfo(t_lebensmittel);
+        IF t_lebensmittel.t_vitamin IS NOT NULL THEN
+            t_lebensmittel.t_vitamin.food_id := t_lebensmittel.entity_id;
+            create_vitamin(t_lebensmittel.t_vitamin);
+        END IF;
+
+        IF t_lebensmittel.t_brennstoff IS NOT NULL THEN
+            t_lebensmittel.t_brennstoff.food_id := t_lebensmittel.entity_id;
+            dbms_output.put_line('id=' || t_lebensmittel.t_brennstoff.food_id);
+            create_brennstoff(t_lebensmittel.t_brennstoff);
+        END IF;
+
+        IF t_lebensmittel.t_mineralstoff IS NOT NULL THEN
+            t_lebensmittel.t_mineralstoff.food_id := t_lebensmittel.entity_id;
+            create_mineralstoff(t_lebensmittel.t_mineralstoff);
+        END IF;
 
     END;
 

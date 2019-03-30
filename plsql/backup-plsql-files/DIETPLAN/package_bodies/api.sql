@@ -34,14 +34,12 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."API" AS
         vitamin_k                    IN                           vitamine.vitamin_k%TYPE
     ) AS
         next_food_id     food_metadata.id%TYPE;
-        t_metainfo       lebensmittel_metainfo;
+        t_lebensmittel       lebensmittel;
         t_brennstoff     brennstoff;
         t_vitamin        vitamin;
         t_mineralstoff   mineralstoff;
     BEGIN
         dbms_output.put_line('inserting into tables');
-        t_metainfo := NEW lebensmittel_metainfo(lebensmittel_metainfo_name);
-        
         t_brennstoff := NEW brennstoff(brennstoff_fett, brennstoff_eiweiss, brennstoff_kohlenhydrate, next_food_id);
         
         t_vitamin := NEW vitamin(vitamin_a_retinol, vitamin_a_betacarotin, vitamin_b1, vitamin_b2, vitamin_b6, vitamin_b12, vitamin_c
@@ -50,6 +48,8 @@ CREATE OR REPLACE PACKAGE BODY "DIETPLAN"."API" AS
         t_mineralstoff := NEW mineralstoff(mineralstoff_calcium, mineralstoff_chlorid, mineralstoff_eisen, mineralstoff_fluorid,
         mineralstoff_iodid, mineralstoff_kalium, mineralstoff_kupfer, mineralstoff_mangan, mineralstoff_magnesium, mineralstoff_natrium
         , mineralstoff_phosphor, mineralstoff_schwefel, mineralstoff_zink, next_food_id);
+        
+        t_lebensmittel := NEW lebensmittel(lebensmittel_metainfo_name,t_vitamin,t_mineralstoff,t_brennstoff);
 
         food_service.insert_new_lebensmittel(t_metainfo,t_vitamin,t_brennstoff,t_mineralstoff);
 

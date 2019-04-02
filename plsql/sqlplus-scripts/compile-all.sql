@@ -14,7 +14,7 @@ BEGIN
     WHERE owner = 'DIETPLAN'
           AND object_type like 'PACKAGE%';
 
-    dbms_output.put_line('############################################COMPILING PACKAGES###############################################');
+    dbms_output.put_line('#########COMPILING PACKAGES#########');
     FOR i IN 1..package_names.last LOOP
         dbms_output.put_line(package_names(i));
         v_statement := 'alter package ' || package_names(i) || ' compile debug';
@@ -28,7 +28,7 @@ BEGIN
           AND object_type like 'PROCEDURE';
 
 
-    dbms_output.put_line('###############################################COMPILING PROCEDURES###############################################');
+    dbms_output.put_line('#########COMPILING PROCEDURES#########');
     FOR i IN 1..procedure_names.last LOOP
         dbms_output.put_line(procedure_names(i));
         v_statement := 'alter procedure ' || procedure_names(i) || ' compile debug';
@@ -42,7 +42,7 @@ BEGIN
           AND object_type like 'TYPE%';
 
 
-    dbms_output.put_line('###############################################COMPILING OBJECTS###############################################');
+    dbms_output.put_line('#########COMPILING OBJECTS#########');
     FOR i IN 1..object_names.last LOOP
         dbms_output.put_line(object_names(i));
         v_statement := 'alter type ' || object_names(i) || ' compile debug';

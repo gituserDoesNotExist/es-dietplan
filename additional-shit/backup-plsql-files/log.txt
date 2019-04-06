@@ -2241,3 +2241,56 @@ Written 35 ddls with user objects from total 47 in schema DIETPLAN
 Skip processing 12 user objects from total 47 in schema DIETPLAN
 scheme2ddl of schema DIETPLAN completed in 1 seconds
 Processing schema  [DIETPLAN] completed 
+#########################################################
+backup-dietplan -Sa 06 Apr 2019 22:36:11 CEST :  start to back up files
+Will try to process schema  [DIETPLAN] 
+Start getting of user object list in schema DIETPLAN for processing
+Found 47 items for processing in schema DIETPLAN
+Saved package dietplan.abstract_integration_test to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/abstract_integration_test.sql
+Saved package dietplan.food_dao_test to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/food_dao_test.sql
+Saved package body dietplan.food_dao_test to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/food_dao_test.sql
+Saved package body dietplan.abstract_integration_test to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/abstract_integration_test.sql
+Saved type dietplan.mineralstoff to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/types/mineralstoff.sql
+Saved type dietplan.base_entity to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/types/base_entity.sql
+Saved sequence dietplan.seq_food_metadata to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/sequences/seq_food_metadata.sql
+Saved package dietplan.food_service to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/food_service.sql
+Saved package body dietplan.food_service to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/food_service.sql
+Saved table dietplan.mineralstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/tables/mineralstoffe.sql
+Saved table dietplan.brennstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/tables/brennstoffe.sql
+Saved package dietplan.api to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/api.sql
+Saved package dietplan.food_transaction_manager to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/food_transaction_manager.sql
+Saved package body dietplan.api to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/api.sql
+Saved function dietplan.test_function to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/functions/test_function.sql
+Saved package body dietplan.food_transaction_manager to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/food_transaction_manager.sql
+Saved package dietplan.object_type_test to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/object_type_test.sql
+Saved package body dietplan.object_type_test to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/object_type_test.sql
+Saved package dietplan.dietplan_exceptions to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/dietplan_exceptions.sql
+Saved procedure dietplan.test_runner to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/procedures/test_runner.sql
+Saved sequence dietplan.seq_brennstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/sequences/seq_brennstoffe.sql
+Saved table dietplan.tagesbedarf_vitamine to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/tables/tagesbedarf_vitamine.sql
+Saved package dietplan.drop_utils to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/drop_utils.sql
+Saved type dietplan.lebensmittel to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/types/lebensmittel.sql
+Saved table dietplan.vitamine to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/tables/vitamine.sql
+Saved package dietplan.food_dao to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/packages/food_dao.sql
+Saved package body dietplan.drop_utils to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/drop_utils.sql
+Saved table dietplan.tagesbedarf_mineralstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/tables/tagesbedarf_mineralstoffe.sql
+Saved sequence dietplan.seq_mineralstoffe to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/sequences/seq_mineralstoffe.sql
+Saved package body dietplan.food_dao to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/package_bodies/food_dao.sql
+Saved type dietplan.lebensmittel_builder to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/types/lebensmittel_builder.sql
+Saved type dietplan.brennstoff to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/types/brennstoff.sql
+Saved sequence dietplan.seq_vitamine to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/sequences/seq_vitamine.sql
+Saved type dietplan.vitamin to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/types/vitamin.sql
+Saved table dietplan.food_metadata to file /home/manfredbeutel/java-sht/projects/es-dietplan/additional-shit/backup-plsql-files/DIETPLAN/tables/food_metadata.sql
+
+-------------------------------------------------------
+   R E P O R T     S K I P P E D     O B J E C T S     
+-------------------------------------------------------
+| skip rule |  object type              |    count    |
+-------------------------------------------------------
+|  config   |  TYPE BODY                |      6      |
+|  config   |  INDEX                    |      6      |
+
+Written 35 ddls with user objects from total 47 in schema DIETPLAN
+Skip processing 12 user objects from total 47 in schema DIETPLAN
+scheme2ddl of schema DIETPLAN completed in 1 seconds
+Processing schema  [DIETPLAN] completed 

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 objectname=$1
+#this file should be in the same folder as object-types.sql!!!!!
+pathToCurrentFile=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+pathToObjectTypesFile=$pathToCurrentFile
 
 if [ -z $objectname ] 
 then
@@ -13,7 +16,7 @@ result=$(sqlplus -s dietplan/dietplan << EOF
 set serveroutput on;
 set feedback off;
 set verify off;
-@object-types.sql $objectname
+@$pathToObjectTypesFile/object-types.sql $objectname
 /
 exit;
 EOF

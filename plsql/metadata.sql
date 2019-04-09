@@ -1,8 +1,19 @@
 select * from sys.all_objects where UPPER(owner) = 'DIETPLAN' and upper(object_name) = 'BASE_ENTITY';
 
+SELECT * FROM sys.all_objects WHERE upper(owner) = 'DIETPLAN';
+
+
+
 select * from user_identifiers;
 select * from all_procedures where owner = 'DIETPLAN';
 select * from dba_procedures;
+
+--table
+select * from user_tables where upper(table_name) = 'VITAMINwE';
+select * from all_tab_COLS where owner='DIETPLAN' and table_name='VITAMINE';
+
+
+
 
 --package
 select * from user_procedures where object_type = 'PACKAGE' and OBJECT_NAME = 'API' and procedure_name is not null;

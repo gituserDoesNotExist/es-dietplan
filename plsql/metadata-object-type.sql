@@ -3,7 +3,7 @@ SET SERVEROUTPUT ON;
 -- select * from all_types where upper(type_name) = 'LEBENSMITTEL';
 
 DECLARE
-    dbobject_name   VARCHAR2(30) := 'PROCEDURE1';
+    dbobject_name   VARCHAR2(30) := 'VITAMINE';
     TYPE STRING_LIST IS
         TABLE OF VARCHAR2(700);
     TYPE argument_record IS RECORD(
@@ -16,23 +16,33 @@ DECLARE
     
     obj_attributes STRING_LIST := STRING_LIST();
     procedures STRING_LIST := STRING_LIST();
+    tbl_columns STRING_LIST := STRING_LIST();
     arguments argument_list := argument_list();
     return_type varchar2(30) := 'void';
     obj_types         STRING_LIST := STRING_LIST();
+    tbl_name varchar2(30) := '';
     all_metadata        STRING_LIST := STRING_LIST();
     tmp_proc_plus_arguments varchar2(1000) := '';
     current_proc_name varchar2(30);
     resultstring varchar2(10000) := '';
+    ve boolean := false;
 BEGIN
     SELECT object_type BULK COLLECT INTO obj_types FROM sys.all_objects WHERE upper(owner) = 'DIETPLAN' AND upper(object_name) = upper(dbobject_name);
-
-    IF obj_types IS EMPTY THEN
-        dbms_output.put_line('no;match;found');
+    BEGIN
+        SELECT table_name into tbl_name from user_tables where upper(table_name) = upper(dbobject_name);
+        EXCEPTION
+              WHEN no_data_found THEN
+                tbl_name := '';
+    end;
+    IF obj_types IS EMPTY and tbl_name is null THEN
+        dbms_output.put_line('nothing;found');
         return;
     END IF;
-    
-    
-    IF obj_types(1) LIKE 'TYPE%' THEN
+
+    if tbl_name is not null then
+        select column_name bulk collect into tbl_columns from all_tab_cols where owner='DIETPLAN' and upper(table_name)=upper(dbobject_name);
+        all_metadata := tbl_columns;
+    elsif obj_types(1) LIKE 'TYPE%' THEN
         SELECT attr_name BULK COLLECT INTO obj_attributes FROM all_type_attrs WHERE upper(type_name) = upper(dbobject_name);
 
         FOR i IN 1..obj_attributes.count LOOP
@@ -140,8 +150,6 @@ BEGIN
         resultstring := concat(resultstring,all_metadata(idx));
     end loop;
     dbms_output.put_line(resultstring);
-     
-
-    
+         
 
 END;

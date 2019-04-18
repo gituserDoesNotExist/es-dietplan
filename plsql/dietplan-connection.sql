@@ -5,10 +5,10 @@ h number;
 th number;
 doc clob;
 begin
-h := dbms_metadata.open('PROCEDURE');
+h := dbms_metadata.open('PACKAGE_BODY');
 
 DBMS_METADATA.SET_FILTER(h,'SCHEMA','DIETPLAN');
-DBMS_METADATA.SET_FILTER(h,'NAME','MYPROC');
+DBMS_METADATA.SET_FILTER(h,'NAME','OBJECT_TYPE_TEST');
 
 th := dbms_metadata.add_transform(h,'MODIFY');
 

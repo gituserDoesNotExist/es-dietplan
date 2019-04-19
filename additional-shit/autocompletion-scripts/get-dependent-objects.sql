@@ -1,9 +1,9 @@
 set serveroutput on;
 
 declare
-    type string_list is table of varchar2(30);
-
     object_to_rename varchar2(30) := 'VITAMIN';
+
+    type string_list is table of varchar2(30);
     type_of_object_to_rename varchar2(30);
     dependent_objects string_list := string_list();
     dependent_objects_string varchar2(2000);
